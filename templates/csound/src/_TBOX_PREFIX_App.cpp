@@ -49,9 +49,9 @@ void _TBOX_PREFIX_App::setupMultichannelDevice()
 {
     //console() << audio::Device::printDevicesToString() << endl;
     auto outputDevice = ci::audio::Device::getDefaultOutput();
-    console() << "Output device "<<endl << outputDevice->getName() << " has "<< outputDevice->getNumOutputChannels() <<"channels: "  << endl;
-    cout<<"Output device getFramesPerBlock "<<outputDevice->getFramesPerBlock() <<endl;
-    cout<<"Output device getSampleRate "<<outputDevice->getSampleRate() <<endl;
+    console() << "Output device "<<endl << outputDevice->getName() << " has "<< outputDevice->getNumOutputChannels() <<"channels: "  << std::endl;
+    std::cout<<"Output device getFramesPerBlock "<<outputDevice->getFramesPerBlock() <<std::endl;
+    std::cout<<"Output device getSampleRate "<<outputDevice->getSampleRate() <<std::endl;
     auto ctx = audio::master();
     audio::OutputDeviceNodeRef multichannelOutputDeviceNode = ctx->createOutputDeviceNode( outputDevice, audio::Node::Format().channels( outputDevice->getNumOutputChannels() ) );
     ctx->setOutput( multichannelOutputDeviceNode );
