@@ -5,18 +5,25 @@
 	id="com.csound.ci"
 	author="Malfunkn"
 	summary="csound block for cinder"
-	url="https://github.com/dawidgorny/Cinder-Config"
+	url="https://csound.com/download.html"
 	>
 	<supports os="macosx" />
-    
-	<header>src/ciCsound.h</header>
+  <supports os="msw" />
+
+  <header>src/ciCsound.h</header>
 	<source>src/ciCsound.cpp</source>
-    
+  
 	<platform os="macosx">
         <framework sdk="true">CsoundLib64.framework</framework>
-        <copyExclude>samples</copyExclude>
-        <copyExclude>docs</copyExclude>
 	</platform>
+  
+  <platform os="msw">
+    <staticLibrary absolute="true">C:/Program Files/Csound6_x64/lib/csound64.lib</staticLibrary>
+    <buildCopy absolute="true">C:/Program Files/Csound6_x64/bin/csound64.dll</buildCopy>
+  </platform>
+  
+  <copyExclude>samples</copyExclude>
+  <copyExclude>docs</copyExclude>
 </block>
 <template>templates/csound/template.xml</template>
 </cinder>
