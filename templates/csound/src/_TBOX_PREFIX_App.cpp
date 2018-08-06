@@ -10,7 +10,7 @@
 
 using namespace ci;
 using namespace ci::app;
-using namespace std;
+//using namespace std;
 
 
 class _TBOX_PREFIX_App : public App {
