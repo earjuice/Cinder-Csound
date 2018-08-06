@@ -104,15 +104,15 @@ void ciCsound::initialize() {
     
     showHelp=true;
     
-    csound=make_shared<CppSound>();
+    csound=std::make_shared<CppSound>();
     csound->setCSD(csdFile());
     
     /* export csd text for performance */
     csound->exportForPerformance();
     //csound->ReadScore
     
-    cout<<"getInternalBuffer->getNumFrames "<<getInternalBuffer()->getNumFrames()<<endl;
-    cout<<"getFramesPerBlock "<<getFramesPerBlock()<<endl;
+    std::cout<<"getInternalBuffer->getNumFrames "<<getInternalBuffer()->getNumFrames()<<std::endl;
+    std::cout<<"getFramesPerBlock "<<getFramesPerBlock()<<std::endl;
     csound->GetHostData();
     /* compile the instrument and score from csd text */
     csound->compile();
@@ -127,7 +127,7 @@ void ciCsound::initialize() {
     
     
     /* start csound in it's own thread */
-    csThread=make_shared<CsoundPerformanceThread>(csound->getCsound());
+    csThread=std::make_shared<CsoundPerformanceThread>(csound->getCsound());
     // start();
     listOrcChannels();
     
@@ -137,7 +137,7 @@ void ciCsound::uninitialize()
     stop();
     printf("Csound thread stopped.\n");
 }
-MYFLT* ciCsound::getInputChannelPtr(string * channelName, controlChannelType channelType)
+MYFLT* ciCsound::getInputChannelPtr(std::string * channelName, controlChannelType channelType)
 {
     MYFLT *value;
     csoundGetChannelPtr(mCsData.cs, &value, channelName->c_str() ,
@@ -145,7 +145,7 @@ MYFLT* ciCsound::getInputChannelPtr(string * channelName, controlChannelType cha
     return value;
 }
 
-MYFLT* ciCsound::getOutputChannelPtr(string * channelName, controlChannelType channelType)
+MYFLT* ciCsound::getOutputChannelPtr(std::string * channelName, controlChannelType channelType)
 {
     MYFLT *value;
     csoundGetChannelPtr(mCsData.cs, &value, csound->GetOutputName() ,
@@ -224,11 +224,11 @@ void ciCsound::listOrcChannels()
     controlChannelInfo_t* ctrlList;
     int chSz= csound->ListChannels(ctrlList);
     if(chSz) {
-        cout<< "print channels list" <<endl;
+        std::cout<< "print channels list" <<std::endl;
         for(int i=0; i<chSz;i++)
         {
-            cout<<  ctrlList[i].name <<endl;
-            cout<<  ctrlList[i].type <<endl;
+            std::cout<<  ctrlList[i].name <<std::endl;
+            std::cout<<  ctrlList[i].type <<std::endl;
         }
     }
 }

@@ -11,7 +11,7 @@
 #include <CsoundLib64/csPerfThread.hpp> // umbenannt..
 #include <string>
 #include <stdio.h>
-using namespace std;
+//using namespace std;
 
 typedef struct csdata_ {
     CSOUND *cs;
@@ -58,12 +58,12 @@ private:
     std::string csdFile();
     std::string csdText;
     
-    shared_ptr<CppSound> csound;
-    shared_ptr<CsoundPerformanceThread> csThread;
+    std::shared_ptr<CppSound> csound;
+    std::shared_ptr<CsoundPerformanceThread> csThread;
     csdata mCsData;
     MYFLT  *spin,*spout;
-    MYFLT* getOutputChannelPtr(string * channelName, controlChannelType channelType=CSOUND_OUTPUT_CHANNEL);
-    MYFLT* getInputChannelPtr(string * channelName, controlChannelType channelType);
+    MYFLT* getOutputChannelPtr(std::string * channelName, controlChannelType channelType=CSOUND_OUTPUT_CHANNEL);
+    MYFLT* getInputChannelPtr(std::string * channelName, controlChannelType channelType);
     
     void initialize()				override;
     void uninitialize()				override;
