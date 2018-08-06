@@ -34,9 +34,8 @@ class ciCsound  : public cinder::audio::Node {
 
 public:
     ciCsound(const cinder::audio::Node::Format &format=Format()) : Node(format){};
-    ~ciCsound(){delete csound;}
-	void setupFile(string fileName);
-	//void quickSetup();
+    ~ciCsound(){}
+	//void setupFile(string fileName);
 	void start();
 	void stop();
 	void pause();
@@ -59,8 +58,8 @@ private:
     std::string csdFile();
     std::string csdText;
     
-    CppSound *csound;
-    CsoundPerformanceThread* csThread;
+    shared_ptr<CppSound> csound;
+    shared_ptr<CsoundPerformanceThread> csThread;
     csdata mCsData;
     MYFLT  *spin,*spout;
     MYFLT* getOutputChannelPtr(string * channelName, controlChannelType channelType=CSOUND_OUTPUT_CHANNEL);
@@ -71,4 +70,4 @@ private:
     void process(ci::audio::Buffer *buffer)override;
 
 };
-#endif // _OF_X_CSOUND_APP
+#endif // CI_CSOUND

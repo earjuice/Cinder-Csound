@@ -6,18 +6,18 @@
 
 #include "ciCsound.h"
 
-
+/*
 //-------------------------------------------------
 void ciCsound::setupFile(string fileName) {
     const cinder::fs::path fName= fileName;
     cinder::DataSourceRef filename = cinder::app::loadAsset( fName );
-    /* make instance of csound */
+    // make instance of csound
     csound = new CppSound;
-    /* compile the instrument and score from .csd file */
+    // compile the instrument and score from .csd file
     csound->Compile((char*)fileName.c_str());
-    /* start csound in it's own thread */
+    // start csound in it's own thread
     csThread = new CsoundPerformanceThread(csound->getCsound());
-}
+}*/
 
 std::string ciCsound::csdFile(){
     
@@ -104,7 +104,7 @@ void ciCsound::initialize() {
     
     showHelp=true;
     
-    csound = new CppSound;
+    csound=make_shared<CppSound>();
     csound->setCSD(csdFile());
     
     /* export csd text for performance */
@@ -127,7 +127,7 @@ void ciCsound::initialize() {
     
     
     /* start csound in it's own thread */
-    csThread = new CsoundPerformanceThread(csound->getCsound());
+    csThread=make_shared<CsoundPerformanceThread>(csound->getCsound());
     // start();
     listOrcChannels();
     
@@ -155,15 +155,11 @@ MYFLT* ciCsound::getOutputChannelPtr(string * channelName, controlChannelType ch
 void ciCsound::process(cinder::audio::Buffer *buffer)
 {
     
-    //csoundGetOutputBuffer();
     CSOUND *cs = mCsData.cs;
     // int ret = mCsData.ret;
     int nchnls = buffer->getNumChannels();
     int ksmps = csoundGetKsmps(cs);
     int slices = getFramesPerBlock()/ksmps;
-    // cout<<"nchnls "<< nchnls<<" slices "<< slices<<" ksmps "<<ksmps <<endl;
-    // MYFLT *spout = csoundGetSpout(cs);
-    //   float coef = (float) INT_MAX / csoundGet0dBFS(cs);
     for(int i=0; i < slices; i++){
         if(mCsData.useAudioInput)
         {
@@ -173,7 +169,6 @@ void ciCsound::process(cinder::audio::Buffer *buffer)
                 float *channel = buffer->getChannel( k );
                 for(int j=0; j < ksmps ; j++)
                 {
-                    // csoundSetSpinSample(cs, j, k,(MYFLT)channel[j+i*ksmps]);
                     spin[j*nchnls+k] = channel[j+i*ksmps];
                 }
             }
@@ -214,7 +209,7 @@ void ciCsound::pause()
 void ciCsound::stop()
 {
     csThread->Stop();
-    delete csThread;
+   // csThread.~shared_ptr();
 }
 
 CSOUND* ciCsound::getCsound()
