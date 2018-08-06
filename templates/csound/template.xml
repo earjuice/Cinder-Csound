@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cinder>
+<template name="csound: basic" parent="org.libcinder.apptemplates.basicopengl">
+	<requires>com.csound.ci</requires>
+	<source replaceContents="true" replaceName="true">src/_TBOX_PREFIX_App.cpp</source>
+    <header>src/AudioDrawUtils.h</header>
+    <source>src/AudioDrawUtils.cpp</source>
+</template>
+</cinder>

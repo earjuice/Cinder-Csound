@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cinder>
+<block
+	name="ciCsound"
+	id="com.csound.ci"
+	author="Malfunkn"
+	summary="csound block for cinder"
+	url="https://github.com/dawidgorny/Cinder-Config"
+	>
+	<supports os="macosx" />
+    
+	<header>src/ciCsound.h</header>
+	<source>src/ciCsound.cpp</source>
+    
+	<platform os="macosx">
+        <framework sdk="true">CsoundLib64.framework</framework>
+        <copyExclude>samples</copyExclude>
+        <copyExclude>docs</copyExclude>
+	</platform>
+</block>
+<template>templates/csound/template.xml</template>
+</cinder>
